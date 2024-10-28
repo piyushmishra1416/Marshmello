@@ -1,33 +1,35 @@
 "use client"
-import React from 'react'
+import React, { useState } from 'react'
 import { PlaceholdersAndVanishInput } from './ui/placeholders-and-vanish-input'
 
 interface SearchBarProps {
-  onProjectSubmit: (slug: string) => void;
+  onProjectSubmit: (slug: string, URL: string) => void;
 }
 
 function SearchBar({ onProjectSubmit }: SearchBarProps) {
+  const [gitURL, setGitURL] = useState<string>("");
    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       console.log("Element Changed", e.target.value);
+      setGitURL(e.target.value);
    }
    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      const form = e.currentTarget;
-      const gitURL = form.elements.namedItem('gitURL') as HTMLInputElement;
+     
+      console.log("git URL::::", gitURL);
 
-      if (gitURL && gitURL.value) {
+      if (gitURL ) {
         try {
-          const response = await fetch('/api/project', {
+          const response = await fetch('http://localhost:9000/project', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ gitURL: gitURL.value }),
+            body: JSON.stringify({ gitURL: gitURL }),
           });
 
           if (response.ok) {
             const data = await response.json();
-            onProjectSubmit(data.data.projectSlug);
+            onProjectSubmit(data.data.projectSlug, data.data.url);
           } else {
             console.error('Failed to submit project');
           }

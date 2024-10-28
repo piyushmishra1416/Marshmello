@@ -6,9 +6,11 @@ import { useState } from "react";
 
 export default function Home() {
   const [projectSlug, setProjectSlug] = useState<string | null>(null);
+  const [projectURL, setProjectURL] = useState<string | null>(null);
 
-  const handleProjectSubmit = (slug: string) => {
+  const handleProjectSubmit = (slug: string, URL: string) => {
     setProjectSlug(slug);
+    setProjectURL(URL);
   };
 
   return (
@@ -21,7 +23,9 @@ export default function Home() {
       {projectSlug && (
         <div className="flex-grow bg-white dark:bg-black py-12">
           <Logs projectSlug={projectSlug} />
+          <h2>{projectURL}</h2>
         </div>
+
       )}
     </div>
   );
