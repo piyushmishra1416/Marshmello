@@ -1,5 +1,6 @@
 const express = require("express");
 const { generateSlug } = require("random-word-slugs");
+const cors = require('cors');
 const { ECSClient, RunTaskCommand } = require("@aws-sdk/client-ecs");
 const { Server } = require("socket.io");
 const Redis = require("ioredis");
@@ -7,6 +8,8 @@ const Redis = require("ioredis");
 const app = express();
 const path = require("path");
 require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
+
+app.use(cors());
 
 const PORT = 9000;
 const subscriber = new Redis(process.env.REDIS_URL, {
