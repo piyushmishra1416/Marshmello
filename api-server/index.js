@@ -9,7 +9,11 @@ const path = require("path");
 require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 
 const PORT = 9000;
-const subscriber = new Redis(process.env.REDIS_URL);
+const subscriber = new Redis(process.env.REDIS_URL, {
+  tls: {
+    rejectUnauthorized: false,
+  },
+});
 const io = new Server({ cors: "*" });
 
 io.on("connection", (socket) => {

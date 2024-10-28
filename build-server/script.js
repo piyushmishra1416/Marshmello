@@ -1,15 +1,21 @@
 const { exec } = require("child_process");
-const path = require("path");
 const fs = require("fs");
 const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
 const mime = require("mime-types");
 const Redis = require("ioredis");
 
 const path = require("path");
-require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
+require("dotenv").config({ path: path.resolve(__dirname, ".env") });
 
-const publisher = new Redis(process.env.REDIS_URL);
+const publisher = new Redis(process.env.REDIS_URL, {
+  tls: {
+    rejectUnauthorized: false,
+  },
+});
 
+publisher.on("error", (err) => {
+  console.error("Redis connection error:", err);
+});
 //fix process.env path it might create an isssue.
 
 const s3Client = new S3Client({
