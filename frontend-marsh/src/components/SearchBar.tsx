@@ -19,7 +19,13 @@ function SearchBar({ onProjectSubmit }: SearchBarProps) {
 
     if (gitURL) {
       try {
-        const response = await fetch("http://localhost:9000/project", {
+        const projectUrl = process.env.NEXT_PUBLIC_PROJECT_URL;
+    
+    if (!projectUrl) {
+      throw new Error("API URL is not defined. Check your environment variables.");
+    }
+
+        const response = await fetch(projectUrl, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

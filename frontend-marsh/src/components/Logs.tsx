@@ -18,7 +18,7 @@ const Logs: React.FC<LogsProps> = ({ projectSlug }) => {
   const [logs, setLogs] = useState<LogEntry[]>([]);
 
   useEffect(() => {
-    const newSocket = io("http://localhost:9002")
+    const newSocket = io(process.env.NEXT_PUBLIC_SOCKET_URL)
 
     newSocket.on("connect", () => {
       console.log("Connected to socket server");

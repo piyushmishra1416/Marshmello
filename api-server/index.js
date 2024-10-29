@@ -9,7 +9,16 @@ const app = express();
 const path = require("path");
 require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 
-app.use(cors());
+const corsOptions = {
+  origin: 'https://marshmello-hha5.vercel.app', // Allow requests from this origin
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Specify the allowed methods
+  allowedHeaders: ['Content-Type', 'Authorization'], // Specify the allowed headers
+  credentials: true, // If you need to include credentials (cookies, authorization headers)
+  // Allow requests to private network addresses
+  'Access-Control-Allow-Private-Network': true
+};
+
+app.use(cors(corsOptions));
 
 const PORT = 9000;
 const subscriber = new Redis(process.env.REDIS_URL, {
