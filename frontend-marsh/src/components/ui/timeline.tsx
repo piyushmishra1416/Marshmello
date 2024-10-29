@@ -1,11 +1,9 @@
 "use client";
 
 import {
-  useMotionValueEvent,
   useScroll,
   useTransform,
   motion,
-  AnimatePresence,
 } from "framer-motion";
 import React, { useEffect, useRef, useState } from "react";
 
@@ -56,7 +54,7 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div>
             <h2 className="text-lg font-semibold text-black dark:text-white">
-              Deployment Logs
+              Build Logs
             </h2>
             <p className="text-sm text-neutral-500">
               {data.length} log entries

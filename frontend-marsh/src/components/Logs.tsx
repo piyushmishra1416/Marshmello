@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { Timeline } from "./ui/timeline";
-import { io, Socket } from "socket.io-client";
+import { io } from "socket.io-client";
 
 interface LogEntry {
   timestamp: string;
@@ -13,36 +13,12 @@ interface LogsProps {
   projectSlug: string;
 }
 
-// Function to determine log type based on message content
-const determineLogType = (message: string) => {
-  const lowerMsg = message.toLowerCase();
-  if (
-    lowerMsg.includes("error") ||
-    lowerMsg.includes("failed") ||
-    lowerMsg.includes("fatal")
-  ) {
-    return "error";
-  }
-  if (lowerMsg.includes("warning") || lowerMsg.includes("warn")) {
-    return "warning";
-  }
-  if (
-    lowerMsg.includes("success") ||
-    lowerMsg.includes("completed") ||
-    lowerMsg.includes("done")
-  ) {
-    return "success";
-  }
-  return "info";
-};
 
 const Logs: React.FC<LogsProps> = ({ projectSlug }) => {
   const [logs, setLogs] = useState<LogEntry[]>([]);
-  const [socket, setSocket] = useState<Socket | null>(null);
 
   useEffect(() => {
-    const newSocket = io("http://localhost:9002");
-    setSocket(newSocket);
+    const newSocket = io("http://localhost:9002")
 
     newSocket.on("connect", () => {
       console.log("Connected to socket server");
@@ -82,7 +58,6 @@ const Logs: React.FC<LogsProps> = ({ projectSlug }) => {
 
   const timelineData = logs.map((log) => ({
     title: new Date(log.timestamp).toLocaleString(),
-    type: determineLogType(log.message),
     content: (
       <pre className="text-sm font-mono whitespace-pre-wrap">{log.message}</pre>
     ),
@@ -95,7 +70,7 @@ const Logs: React.FC<LogsProps> = ({ projectSlug }) => {
       ) : (
         <div className="flex items-center justify-center h-64">
           <p className="text-neutral-500 animate-pulse">
-            Waiting for deployment logs...
+            Waiting for Build logs...
           </p>
         </div>
       )}
