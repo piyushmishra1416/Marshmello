@@ -1,0 +1,19 @@
+version: '3'
+
+services: 
+  api-server:
+    build: ./api-server
+    ports:
+      - "9000:9000"
+    environment:
+      NODE_ENV: production
+      PORT: 9000
+
+  reverse-proxy:
+    build: ./s3-reverse-proxy
+    ports:
+      - "9002:9002"
+    environment:
+      NODE_ENV: production
+      PORT: 9002
+  
