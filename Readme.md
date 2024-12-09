@@ -2,6 +2,13 @@
 
 Marshmello is a Vercel-like service that allows users to build and deploy projects directly from a Git repository. It handles builds using AWS Fargate, reverse proxies S3 content, and communicates via WebSocket for real-time build logs.
 
+## Project Demo (Recorded Video)
+
+I had initially set up this project live using AWS ECS, but unfortunately, I got billed $100 after leaving it running for a month. To avoid further costs, I have taken the live project down. However, here’s a recorded video showcasing the project in action: [Project Demo Video](https://drive.google.com/file/d/15tcp4x_zA0W4vMHGV1l01u0wuDr0aSc5/view?usp=drive_link).
+
+Please note that while the UI was further improved after this recording, the video demonstrates the core functionality. You can also observe the logs being generated, which highlight the backend processes.
+
+
 ## Features
 
 - **Build and Deploy Projects**: Clone from a Git repository and deploy the project on AWS ECS using Fargate.
