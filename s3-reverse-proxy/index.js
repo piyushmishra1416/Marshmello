@@ -6,7 +6,7 @@ const PORT = 8000;
 const proxy = httpProxy.createProxy();
 
 const path = require("path");
-require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
+require("dotenv").config({ path: path.resolve(__dirname, ".env") });
 
 const BASE_PATH = process.env.BASE_PATH;
 

@@ -7,7 +7,7 @@ const Redis = require("ioredis");
 
 const app = express();
 const path = require("path");
-require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
+require("dotenv").config({ path: path.resolve(__dirname, ".env") });
 
 const corsOptions = {
   origin: 'https://marshmello-hha5.vercel.app', // Allow requests from this origin
